@@ -1,6 +1,6 @@
 from cheaper import Handler
 
 if __name__ == "__main__":
-  event = {"game_list": ("Animal Crossing™: New Horizons","The Legend of Zelda: Breath of the Wild","Fitness Boxing","Fitness Boxing 2: Rhythm & Exercise")}
+  event = {"game_list": ("Animal Crossing™: New Horizons","The Legend of Zelda: Breath of the Wild","Fitness Boxing","Fitness Boxing 2: Rhythm & Exercise","1-2-Switch", "Mario Kart™ 8 Deluxe", "Overcooked! 2", "Splatoon™ 2","Overcooked Special Edition")}
   Handler(event, None)
 

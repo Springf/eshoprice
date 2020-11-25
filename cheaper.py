@@ -7,13 +7,18 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 def Handler(event, context):
     game_list = event['game_list']
-    print(game_list[0])
-    response = requests.get(f'https://eshop-prices.com/games?currency=SGD&q={quote(game_list[1])}' , headers=headers)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    discount = soup.find('span', {'class': 'discount'})
-    price = soup.find('span', {'class': 'price-tag'})
-    if discount != None:
-        print(discount.text)
-        print(price.contents[2])
-    print(price.contents[0])
-    #print(soup.prettify())
+    for g in game_list:
+        print(f'checking game {g} ... ')
+        response = requests.get(f'https://eshop-prices.com/games?currency=SGD&q={g}' , headers=headers)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        games = soup.findAll('div', {'class': 'games-list-item-content'})
+        for game in games:
+            title = game.findChild("h5" , recursive=True).text
+            if title == g or title.replace(u"\u2122", '') == g:
+                discount = game.findChild('span', {'class': 'discount'})
+                price = game.findChild('span', {'class': 'price-tag'})
+                if discount != None:
+                    message = f'Got Discount {discount.text.strip()}, now @ {price.contents[2].strip()}!'
+                    print(message)
+                else:
+                    print('No discount found.')

@@ -23,10 +23,10 @@ def Handler(event, context):
                 if discount != None:
                     message = f'Got Discount {discount.text.strip()}, now @ {price.contents[2].strip()}!'
                     print(message)
-                    # response = sns.publish(
-                    # TopicArn='arn:aws:sns:ap-southeast-1:872764013972:company_annoucement',    
-                    # Message= message,
-                    # Subject = g)
-                    # print(f'Sent: {response}')
+                    response = sns.publish(
+                    TopicArn='arn:aws:sns:ap-southeast-1:872764013972:company_annoucement',    
+                    Message= message,
+                    Subject = g)
+                    print(f'Sent: {response}')
                 else:
                     print('No discount found.')
